@@ -5,7 +5,7 @@ import img2 from "../../img/2.png";
 import img3 from "../../img/3.png";
 import img4 from "../../img/4.png";
 
-const StyledPostPayWrapper = styled.div`
+const PostPayWrapper = styled.div`
   border: 1px solid #ededed;
   margin: 0 auto;
   background: #f2f2f2;
@@ -50,7 +50,43 @@ const StyledPostPayItemList = styled.ul`
   }
 `;
 
-const StyledPostPayItem = styled.li`
+const PostPayTextContent = styled.h4`
+
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+  color: #6c6e70;
+
+  ${(props) =>
+    props.normalText &&
+    css`
+      font-weight: normal;
+      font-size: 1.3em;
+    `}
+  span {
+    font-size: 0.7em;
+    position: absolute;
+    bottom: 10px;
+    font-weight: normal;
+  }
+`;
+
+
+const PostPayItem = styled.li`
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 0px;
+
+  width: 100%;
   display: flex;
   align-items: center;
   position: relative;
@@ -62,7 +98,7 @@ const StyledPostPayItem = styled.li`
       span {
         height: 48%;
       }
-      h4 {
+      ${PostPayTextContent} {
         span {
           height: auto;
           bottom: auto;
@@ -72,7 +108,7 @@ const StyledPostPayItem = styled.li`
     `}
 `;
 
-const StyledPostPayImgItemWrapper = styled.div`
+const PostPayImgItemWrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -101,29 +137,7 @@ const StyledPostPayHrItem = styled.span`
   border: 1px solid #d8d8d8;
 `;
 
-const StyledPostPayContent = styled.div``;
-const StyledPostPayTextContent = styled.h4`
-  display: block;
-  font-size: 1.5em;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  font-weight: bold;
-  color: #6c6e70;
-  ${(props) =>
-    props.normalText &&
-    css`
-      font-weight: normal;
-      font-size: 1.3em;
-    `}
-  span {
-    font-size: 0.7em;
-    position: absolute;
-    bottom: 10px;
-    font-weight: normal;
-  }
-`;
+const PostPayContent = styled.div``;
 
 const StylePostPayBottomText = styled.h3`
   text-align: center;
@@ -138,21 +152,23 @@ const StylePostPayBottomText = styled.h3`
   padding: 10px;
 `;
 
-const StyledPostPayBody = styled.div`
+const PostPayBody = styled.div`
   display: flex;
   width: 100%;
 `;
 
-const StyledPostPayBodyBorderSlice = styled.div`
+const PostPayBodyBorderSlice = styled.div`
   width: 2%;
   display: flex;
   justify-content: center;
-  postion: relative;
+  position: relative;
 `;
-const StyledPostPayBodyBorderSliceContent = styled.span`
+
+const PostPayBodyBorderSliceContent = styled.span`
   border-right: 1px solid #d0d0d0;
 `;
-const StyledPostPayBodyBorderSliceText = styled.h2`
+
+const PostPayBodyBorderSliceText = styled.h2`
   display: block;
   font-size: 1.5em;
   margin-block-start: 0;
@@ -176,113 +192,107 @@ const StyledPostPayFooter = styled.div`
   position: relative;
 `;
 
-const PostPay = () => {
-  const PostPayCardItem = ({
-    imgName,
-    url,
-    itemTitle,
-    desTitle,
-    children,
-    newAttr,
-    normalText,
-  }) => {
-    return (
-      <StyledPostPayItem newAttr={newAttr}>
-        <StyledPostPayImgItemWrapper>
-          <StyledPostPayImgItem src={url} alt={imgName} />
-          {children}
-        </StyledPostPayImgItemWrapper>
+const PostPayCardItem = ({
+  imgName,
+  url,
+  itemTitle,
+  desTitle,
+  children,
+  newAttr,
+  normalText,
+}) => (
+  <PostPayItem newAttr={newAttr}>
+    <PostPayImgItemWrapper>
+      <StyledPostPayImgItem src={url} alt={imgName} />
+      {children}
+    </PostPayImgItemWrapper>
 
-        <StyledPostPayContent>
-          <StyledPostPayTextContent normalText={normalText}>
-            {itemTitle} <br />
-            {`${desTitle}` && <span> {desTitle} </span>}
-          </StyledPostPayTextContent>
-        </StyledPostPayContent>
-      </StyledPostPayItem>
-    );
-  };
+    <PostPayContent>
+      <PostPayTextContent normalText={normalText}>
+        {itemTitle} <br />
+        {`${desTitle}` && <span> {desTitle} </span>}
+      </PostPayTextContent>
+    </PostPayContent>
+  </PostPayItem>
+);
 
-  const PostPayCard = ({ titleComponent, children }) => {
-    return (
-      <>
-        <StyledPostPayContentWrapper>
-          <StyledPostPayContentTitle>
-            {titleComponent}
-          </StyledPostPayContentTitle>
-          <StyledPostPayItemList>{children}</StyledPostPayItemList>
-        </StyledPostPayContentWrapper>
-      </>
-    );
-  };
+const PostPayCard = ({ titleComponent, children }) => (
+  <>
+    <StyledPostPayContentWrapper>
+      <StyledPostPayContentTitle>
+        {titleComponent}
+      </StyledPostPayContentTitle>
+      <StyledPostPayItemList>{children}</StyledPostPayItemList>
+    </StyledPostPayContentWrapper>
+  </>
+);
 
-  return (
-    <StyledPostPayWrapper>
-      <StyledPostPayBody>
-        <PostPayCard titleComponent="Pay in two!" imgName="pay-half">
-          <PostPayCardItem
-            itemTitle="Pay half today!"
-            desTitle="AED 100.00 in one month"
-            url={img1}
-            imgName="pay-half"
-          ></PostPayCardItem>
-          <PostPayCardItem
-            newAttr
-            itemTitle="Pay half next month!"
-            desTitle="Pay AED 100.00 in one month"
-            url={img2}
-            imgName="pay-half2"
-          >
-            <StyledPostPayHrItem />
-          </PostPayCardItem>
-        </PostPayCard>
-        <StyledPostPayBodyBorderSlice>
-          <StyledPostPayBodyBorderSliceContent />
-          <StyledPostPayBodyBorderSliceText>
-            OR
-          </StyledPostPayBodyBorderSliceText>
-        </StyledPostPayBodyBorderSlice>
+const PostPay = () => (
+  <PostPayWrapper>
+    <PostPayBody>
+      <PostPayCard titleComponent="Pay in two!" imgName="pay-half">
+        <PostPayCardItem
+          itemTitle="Pay half today!"
+          desTitle="AED 100.00 in one month"
+          url={img1}
+          imgName="pay-half"
+        ></PostPayCardItem>
+        <PostPayCardItem
+          newAttr
+          itemTitle="Pay half next month!"
+          desTitle="Pay AED 100.00 in one month"
+          url={img2}
+          imgName="pay-half2"
+        >
+          <StyledPostPayHrItem />
+        </PostPayCardItem>
+      </PostPayCard>
+      <PostPayBodyBorderSlice>
+        <PostPayBodyBorderSliceContent />
+        <PostPayBodyBorderSliceText>
+          OR
+        </PostPayBodyBorderSliceText>
+      </PostPayBodyBorderSlice>
 
-        <PostPayCard normalText titleComponent="Pay in four!">
-          <PostPayCardItem
-            normalText
-            itemTitle="Pay AED 50.00 today"
-            url={img3}
-            imgName="pay-half"
-          ></PostPayCardItem>
-          <PostPayCardItem
-            normalText
-            itemTitle="Pay AED 50.00 in two weeks"
-            url={img1}
-            imgName="pay-half-2week"
-          >
-            <StyledPostPayHrItem />
-          </PostPayCardItem>
-          <PostPayCardItem
-            normalText
-            itemTitle="Pay AED 50.00 in four weeks"
-            url={img4}
-            imgName="pay-half-four-week"
-          >
-            <StyledPostPayHrItem />
-          </PostPayCardItem>
-          <PostPayCardItem
-            normalText
-            itemTitle="Pay AED 50.00 in six weeks"
-            url={img2}
-            imgName="pay-half-six"
-          >
-            <StyledPostPayHrItem />
-          </PostPayCardItem>
-        </PostPayCard>
-      </StyledPostPayBody>
-      <StyledPostPayFooter>
-        <StylePostPayBottomText>
-          Zero interest. Zero fees.
-        </StylePostPayBottomText>
-      </StyledPostPayFooter>
-    </StyledPostPayWrapper>
-  );
-};
+      <PostPayCard normalText titleComponent="Pay in four!">
+        <PostPayCardItem
+          normalText
+          itemTitle="Pay AED 50.00 today"
+          url={img3}
+          imgName="pay-half"
+        ></PostPayCardItem>
+        <PostPayCardItem
+          normalText
+          itemTitle="Pay AED 50.00 in two weeks"
+          url={img1}
+          imgName="pay-half-2week"
+        >
+          <StyledPostPayHrItem />
+        </PostPayCardItem>
+        <PostPayCardItem
+          normalText
+          itemTitle="Pay AED 50.00 in four weeks"
+          url={img4}
+          imgName="pay-half-four-week"
+        >
+          <StyledPostPayHrItem />
+        </PostPayCardItem>
+        <PostPayCardItem
+          normalText
+          itemTitle="Pay AED 50.00 in six weeks"
+          url={img2}
+          imgName="pay-half-six"
+        >
+          <StyledPostPayHrItem />
+        </PostPayCardItem>
+      </PostPayCard>
+    </PostPayBody>
+    <StyledPostPayFooter>
+      <StylePostPayBottomText>
+        Zero interest. Zero fees.
+      </StylePostPayBottomText>
+    </StyledPostPayFooter>
+  </PostPayWrapper>
+);
 
 export default PostPay;
