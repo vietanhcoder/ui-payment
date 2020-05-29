@@ -101,8 +101,6 @@ const StyledPostPayHrItem = styled.span`
   border: 1px solid #d8d8d8;
 `;
 
-// Need help for onTop
-
 const StyledPostPayContent = styled.div``;
 const StyledPostPayTextContent = styled.h4`
   display: block;
